@@ -8,9 +8,6 @@ const Selectors = {
     sidebarPane: ".sidebarPane",
     roomFilterDropdown: "#_roomListContainer > div > div > div > div",
     roomFilterDropdownList: "#_roomListContainer > div > div > div > div.fade > div > ul",
-    roomFilterDropdownListItems: "#_roomListContainer > div > div > div > div.fade > div > ul > li",
-    newCategoryButton: `.exoego_buttons > button.${activeClass}`,
-
     buttonContainer: `.exoego_buttons`,
     activeButton: `.exoego_buttons > button.${activeClass}`,
     buttonForCategories: `.exoego_buttons > button.category`,
@@ -137,29 +134,6 @@ const getLocale = (LANGUAGE) => {
     }
 }
 
-const deleteCatButtons = () => {
-    Array.from(document.querySelectorAll(Selectors.buttonForCategories)).forEach(e => {
-        e.remove();
-    });
-}
-
-const initCategoryButtons = () => {
-    // update categories
-    return Array
-        .from(document.querySelectorAll(Selectors.roomFilterDropdownListItems))
-        .flatMap((item, index) => {
-            console.log(index, item)
-            if (index > 7) {
-                return [{index: index + 1, item}];
-            } else {
-                return [];
-            }
-        }).map(categoryItem => createButton({
-            "label": categoryItem.item.innerText,
-            "selector": `${Selectors.roomFilterDropdownList} > li:nth-of-type(${categoryItem.index})`,
-        }));
-};
-
 const cancelToken = setInterval(() => {
     if (document.querySelector(Selectors.roomListArea)) {
         // Detect language from button label, since script can not access window.LANGUAGe
@@ -171,17 +145,7 @@ const cancelToken = setInterval(() => {
     }
 }, 50);
 
-
-var catsInitialied = false;
-
 setInterval(() => {
-    if (!catsInitialied) {
-        const categoryButtons = initCategoryButtons();
-        document.querySelector(Selectors.buttonContainer).append(...categoryButtons);
-        catsInitialied  = true;
-    }
-
-    // update counts
     countingButtons.forEach(props => {
         const o = document.querySelector(props.origin);
         const count = o?.innerText?.match(/\d+/)[0] ?? 0;
