@@ -68,12 +68,14 @@ const init = (Locale) => {
         ${Selectors.roomsListContainer} {
             display: none;
         }
-        .exoego_buttons {
-            margin: 5px 0;
-        }
+
         #_wrapper > div:last-of-type[style] {
             top: 90px !important;
             left: 60px !important;
+        }
+
+        .exoego_buttons {
+            margin: 5px 0;
         }
 
         .exoego_buttons button {
@@ -97,14 +99,7 @@ const init = (Locale) => {
             color: #fff;
             font-weight: bold;
         }
-
-        .light .exoego_buttons button svg {
-            vertical-align: central;
-        }
-        .light .exoego_buttons button.${activeClass} svg {
-            fill: #fff;
-        }
-
+        
         .dark .exoego_buttons button {
             color: #eee;
         }
