@@ -69,9 +69,9 @@ const init = (Locale) => {
             display: none;
         }
 
-        #_wrapper > div:last-of-type[style] {
-            top: 90px !important;
-            left: 60px !important;
+        #_wrapper > div:last-of-type[style="z-index: 1001; top: 0px; left: 0px;"] {
+            top: 125px !important;
+            left: 30px !important;
         }
 
         .exoego_buttons {
@@ -94,6 +94,14 @@ const init = (Locale) => {
             content: ""
         }
 
+        .light .exoego_buttons button {
+            color: #2A477F;
+        }
+
+        .light .exoego_buttons button svg {
+            fill: #2A477F;
+        }
+
         .light .exoego_buttons button.${activeClass} {
             background: #2E5190;
             color: #fff;
@@ -102,6 +110,10 @@ const init = (Locale) => {
         
         .dark .exoego_buttons button {
             color: #eee;
+        }
+
+        .dark .exoego_buttons button svg {
+            fill: #fff;
         }
 
         .dark .exoego_buttons button.${activeClass} {
