@@ -84,6 +84,7 @@ const init = (Locale) => {
             padding: 2px 4px;
             margin: 0 2px;
             border-radius: 4px;
+            cursor: pointer;
         }
 
         .exoego_buttons button[data-count]::after {
