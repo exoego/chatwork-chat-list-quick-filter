@@ -10,7 +10,7 @@ const Selectors = {
     roomsListContainer: "#_roomListContainer",
     roomFilterDropdown: "#_roomListContainer > div > div > div > div",
     roomFilterDropdownList: "#_roomListContainer > div > div > div > div.fade > div > ul",
-    buttonContainer: `.exoego_buttons`,
+    buttonContainer: `.sidebarPane > .exoego_buttons`,
     activeButton: `.exoego_buttons > button.${activeClass}`,
     buttonForCategories: `.exoego_buttons > button.category`,
 };
@@ -130,6 +130,10 @@ const init = (Locale) => {
     buttonContainer.className = "exoego_buttons"
     buttonContainer.append(...buttons);
     document.querySelector(Selectors.roomListArea).before(buttonContainer);
+    updatePaneHeight(buttonContainer);
+}
+
+function updatePaneHeight(buttonContainer) {
     const height = buttonContainer.scrollHeight + 10;
     document.querySelector(Selectors.sidebarPane).style = `
       height: calc(100% - ${height}px);
@@ -175,6 +179,8 @@ const cancelToken = setInterval(() => {
 }, 50);
 
 setInterval(() => {
+    const buttonContainer = document.querySelector(Selectors.buttonContainer);
+    updatePaneHeight(buttonContainer);
     countingButtons.forEach(props => {
         const o = document.querySelector(props.origin);
         const count = o?.innerText?.match(/\d+/)[0] ?? 0;
