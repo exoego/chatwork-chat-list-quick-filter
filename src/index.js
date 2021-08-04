@@ -186,4 +186,4 @@ setInterval(() => {
         const count = o?.innerText?.match(/\d+/)[0] ?? 0;
         document.querySelector(props.button).dataset.count = count;
     });
-}, 5000);
+}, 3000);
