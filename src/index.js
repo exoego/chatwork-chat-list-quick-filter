@@ -13,6 +13,8 @@ const Selectors = {
     buttonContainer: `.sidebarPane > .exoego_buttons`,
     activeButton: `.exoego_buttons > button.${activeClass}`,
     buttonForCategories: `.exoego_buttons > button.category`,
+    roomsSwitch: "#sidebarSwitch > div > button._showDescription:nth-of-type(1)",
+    bookmarksSwitch: "#sidebarSwitch > div > button._showDescription:nth-of-type(2)",
 };
 
 const buttonsProp = (Locale) => [
@@ -60,8 +62,6 @@ const createButton = (prop) => {
 }
 
 const init = (Locale) => {
-    // keep open
-    document.querySelector(Selectors.roomFilterDropdown).click();
     const style = document.createElement("style");
     // language=css
     style.innerText = `
@@ -129,7 +129,30 @@ const init = (Locale) => {
     const buttonContainer = document.createElement("div");
     buttonContainer.className = "exoego_buttons"
     buttonContainer.append(...buttons);
-    document.querySelector(Selectors.roomListArea).before(buttonContainer);
+
+    function renderQuickFilter(element) {
+        // keep rooms dropdown open
+        document.querySelector(Selectors.roomFilterDropdown).click();
+        element.before(buttonContainer);
+    }
+
+    const roomsSwitch = document.querySelector(Selectors.roomsSwitch)
+    roomsSwitch.addEventListener("click", () => {
+        const ct = setInterval(() => {
+            let element = document.querySelector(Selectors.roomListArea);
+            if (element) {
+                clearInterval(ct)
+                renderQuickFilter(element)
+            }
+        }, 30);
+    })
+
+    const bookmarkSwitch = document.querySelector(Selectors.bookmarksSwitch)
+    bookmarkSwitch.addEventListener("click", () => {
+        buttonContainer.remove()
+    })
+
+    renderQuickFilter(document.querySelector(Selectors.roomListArea))
     updatePaneHeight(buttonContainer);
 }
 
