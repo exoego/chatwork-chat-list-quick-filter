@@ -15,6 +15,7 @@ const Selectors = {
     buttonForCategories: `.exoego_buttons > button.category`,
     roomsSwitch: "#sidebarSwitch > div > button._showDescription:nth-of-type(1)",
     bookmarksSwitch: "#sidebarSwitch > div > button._showDescription:nth-of-type(2)",
+    roomItems: "#RoomList > ul > li",
 };
 
 const buttonsProp = (Locale) => [
@@ -206,7 +207,19 @@ setInterval(() => {
     updatePaneHeight(buttonContainer);
     countingButtons.forEach(props => {
         const o = document.querySelector(props.origin);
-        const count = o?.innerText?.match(/\d+/)[0] ?? 0;
+        const count = o?.innerText?.match(/\d+/)[0] ?? "0";
         document.querySelector(props.button).dataset.count = count;
     });
+
+    const unreadDirectChats = Array
+        .from(document.querySelectorAll(Selectors.roomItems))
+        .filter(element => {
+            const unreadBadge = element.querySelector("._unreadBadge")
+            if (unreadBadge === null) {
+                return false
+            }
+            const chatIcon = element.querySelector("img")
+            return chatIcon?.src?.includes("avatar")
+        });
+    document.querySelector(`${Selectors.buttonContainer} > button:nth-child(8)`).dataset.count = String(unreadDirectChats.length)
 }, 3000);
