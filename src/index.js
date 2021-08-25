@@ -16,6 +16,7 @@ const Selectors = {
     roomsSwitch: "#sidebarSwitch > div > button._showDescription:nth-of-type(1)",
     bookmarksSwitch: "#sidebarSwitch > div > button._showDescription:nth-of-type(2)",
     roomItems: "#RoomList > ul > li",
+    categoryButtons: "#_roomListContainer > div > div > div > div.fade > div > ul> li:nth-child(10)",
 };
 
 const buttonsProp = (Locale) => [
@@ -47,17 +48,12 @@ const createButton = (prop) => {
     }
     button.addEventListener("click", (event) => {
         event.preventDefault();
-        const ct = setInterval(() => {
-            const filter = document.querySelector(prop.selector);
-            if (filter) {
-                filter.click();
-                document.querySelector(Selectors.activeButton)?.classList.remove(activeClass);
-                if (prop.active !== false) {
-                    button.classList.add(activeClass);
-                }
-                clearInterval(ct);
-            }
-        }, 10);
+        const filter = document.querySelector(prop.selector);
+        filter.click();
+        document.querySelector(Selectors.activeButton)?.classList.remove(activeClass);
+        if (prop.active !== false) {
+            button.classList.add(activeClass);
+        }
     });
     return button;
 }
